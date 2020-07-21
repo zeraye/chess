@@ -58,7 +58,7 @@ def draw_pieces(win):
 def draw_selected(win):
     try:
         empty_rect = pygame.Rect(find_by_selected()[1] * 100, find_by_selected()[0] * 100, 100, 100)
-        pygame.draw.rect(win, (255, 0, 0), empty_rect, 3)
+        pygame.draw.rect(win, (255, 0, 0), empty_rect, 1)
     except TypeError:
         print('ERROR with coloring selected rect')
 
