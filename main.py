@@ -19,10 +19,6 @@ GREY = (128, 128, 128)
 GREEN = (118, 150, 86)
 RED = (255, 0, 0)
 
-# Settings for castling
-white_king_moved = False
-black_king_moved = False
-
 
 # Main function
 def main(win):
@@ -122,6 +118,9 @@ def main(win):
                     deselect()
             print_board()
             draw(win)
+            if check_mate() != True:
+                run = False
+                pygame.quit()
 
         if not pygame.mouse.get_pressed()[0]:
             pressed = False

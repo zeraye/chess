@@ -35,7 +35,7 @@ def deselect():
         i += 1
 
 
-# Finding piece by type
+# Finding piece by selected
 def find_by_selected():
     i = 0
     j = 0
@@ -52,6 +52,20 @@ def find_by_selected():
 def find_by_pos(row, col):
     if not board[row][col] == '':
         return board[row][col][0], board[row][col][1]
+
+
+# Finding piece by type and color
+def find_by_type(type, color):
+    i = 0
+    j = 0
+    while i < 8:
+        while j < 8:
+            if board[i][j][0] == type and board[i][j][1] == color:
+                return i, j
+            j += 1
+        j = 0
+        i += 1
+    return False
 
 
 # Checing if move is possible and correct
@@ -109,7 +123,9 @@ def can_move(new_row, new_col, type, color, white_king_moved, black_king_moved):
         if not (old_row == new_row and old_col == new_col):
             if not find_by_pos(new_row, new_col)[1] == color:
                 if find_by_pos(new_row, new_col)[1] == 2:
-                    if (new_row == old_row - 1 and new_col == old_col - 1) or (new_row == old_row - 1 and new_col == old_col + 1) and not (old_row - new_row == 1 and old_col == new_col):
+                    if (new_row == old_row - 1 and new_col == old_col - 1) or (
+                            new_row == old_row - 1 and new_col == old_col + 1) and not (
+                            old_row - new_row == 1 and old_col == new_col):
                         # remove_by_pos(new_row, new_col)
                         return 'correct-move'
                 elif find_by_pos(new_row, new_col)[1] == 0:
@@ -123,7 +139,9 @@ def can_move(new_row, new_col, type, color, white_king_moved, black_king_moved):
         if not (old_row == new_row and old_col == new_col):
             if not find_by_pos(new_row, new_col)[1] == color:
                 if find_by_pos(new_row, new_col)[1] == 1:
-                    if (new_row == old_row + 1 and new_col == old_col - 1) or (new_row == old_row + 1 and new_col == old_col + 1) and not (new_row - old_row == 1 and old_col == new_col):
+                    if (new_row == old_row + 1 and new_col == old_col - 1) or (
+                            new_row == old_row + 1 and new_col == old_col + 1) and not (
+                            new_row - old_row == 1 and old_col == new_col):
                         # remove_by_pos(new_row, new_col)
                         return 'correct-move'
                 elif find_by_pos(new_row, new_col)[1] == 0:
@@ -375,3 +393,13 @@ def get_clicked_pos(pos):
     row = y // 100
     col = x // 100
     return row, col
+
+
+# Checking for mate
+def check_mate():
+    if not find_by_type('KING', 1):
+        return 'KING-WHITE'
+    if not find_by_type('KING', 2):
+        return 'KING-BLACK'
+
+    return True
